@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{3d117472-4287-4d1f-a665-a1d679b31f2a}</ProjectGuid>
+    <RootNamespace>GPUPhysics</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\OpenGL\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\OpenGL\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\OpenGL\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>GLFW/glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>GLFW/glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>GLFW/glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\game\shader\shader_include.cpp" />
+    <ClCompile Include="src\game\camera\camera3d.cpp" />
+    <ClCompile Include="src\game\camera\camera2d.cpp" />
+    <ClCompile Include="src\game\camera\camera.cpp" />
+    <ClCompile Include="src\game\game.cpp" />
+    <ClCompile Include="src\game\input\input.cpp" />
+    <ClCompile Include="src\game\shader\compute.cpp" />
+    <ClCompile Include="src\game\shader\shader.cpp" />
+    <ClCompile Include="src\game\softbody\shapes\circle.cpp" />
+    <ClCompile Include="src\game\softbody\objectdata.cpp" />
+    <ClCompile Include="src\game\softbody\shapes\res_rect.cpp" />
+    <ClCompile Include="src\game\softbody\spring.cpp" />
+    <ClCompile Include="src\game\softbody\shapes\square.cpp" />
+    <ClCompile Include="src\game\window\window.cpp" />
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\stb\stb_image.cpp" />
+    <ClCompile Include="src\game\softbody\vertexdata.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\game\shader\shader_include.h" />
+    <ClInclude Include="src\game\camera\camera3d.h" />
+    <ClInclude Include="src\game\camera\camera2d.h" />
+    <ClInclude Include="src\game\camera\camera.h" />
+    <ClInclude Include="src\game\game.h" />
+    <ClInclude Include="src\game\input\input.h" />
+    <ClInclude Include="src\game\shader\compute.h" />
+    <ClInclude Include="src\game\shader\shader.h" />
+    <ClInclude Include="src\game\softbody\objectdata.h" />
+    <ClInclude Include="src\game\softbody\shapes\circle.h" />
+    <ClInclude Include="src\game\softbody\shapes\res_rect.h" />
+    <ClInclude Include="src\game\softbody\spring.h" />
+    <ClInclude Include="src\game\softbody\shapes\square.h" />
+    <ClInclude Include="src\game\window\window.h" />
+    <ClInclude Include="src\stb\stb_image.h" />
+    <ClInclude Include="src\game\softbody\vertexdata.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\common\common.glsl" />
+    <None Include="assets\shaders\compute\average_angles.glsl" />
+    <None Include="assets\shaders\compute\average_centers.glsl" />
+    <None Include="assets\shaders\compute\calculate_bounding_box.glsl" />
+    <None Include="assets\shaders\compute\find_angles.glsl" />
+    <None Include="assets\shaders\compute\find_bounds.glsl" />
+    <None Include="assets\shaders\compute\find_indice_boundaries.glsl" />
+    <None Include="assets\shaders\compute\find_offsets.glsl" />
+    <None Include="assets\shaders\compute\gravity.glsl" />
+    <None Include="assets\shaders\compute\init_object_properties.glsl" />
+    <None Include="assets\shaders\compute\integrate.glsl" />
+    <None Include="assets\shaders\compute\physics.glsl" />
+    <None Include="assets\shaders\compute\find_centers.glsl" />
+    <None Include="assets\shaders\compute\find_object_boundaries.glsl" />
+    <None Include="assets\shaders\compute\shape_matching.glsl" />
+    <None Include="assets\shaders\fragment\point.glsl" />
+    <None Include="assets\shaders\fragment\line.glsl" />
+    <None Include="assets\shaders\fragment\polygon.glsl" />
+    <None Include="assets\shaders\fragment\triangle.glsl" />
+    <None Include="assets\shaders\vertex\center.glsl" />
+    <None Include="assets\shaders\vertex\line.glsl" />
+    <None Include="assets\shaders\compute\reset_center.glsl" />
+    <None Include="assets\shaders\compute\spring_physics.glsl" />
+    <None Include="assets\shaders\vertex\point.glsl" />
+    <None Include="assets\shaders\vertex\polygon.glsl" />
+    <None Include="assets\shaders\vertex\shape_matching.glsl" />
+    <None Include="assets\shaders\vertex\triangle.glsl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+ <ItemGroup>
+  <None Update="Assets\**\*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+ </ItemGroup>
+</Project>
