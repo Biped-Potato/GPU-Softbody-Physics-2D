@@ -1,2 +1,3 @@
 # GPUPhysics
- Messing around with GPU Physics
+OpenGL GPU Spring Mass Model Softbody Simulation
+![teaser](img/softbody.gif)
