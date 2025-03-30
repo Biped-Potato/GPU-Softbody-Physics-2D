@@ -37,8 +37,8 @@ int Game::setup() {
 
     Square square1 = Square(glm::vec3(0., -10400., 0.), 10000.0, object_id++, 10000000000.0, 0.1,0.05);
     square1.insert(&vertex_data, &object_data, &indices, &triangle_indices, &spring_indices, &spring_data);
-    for (int x = 0; x < 16; x++) {
-        for (int y = 0; y < 16; y++) {
+    for (int x = 0; x < 12; x++) {
+        for (int y = 0; y < 12; y++) {
             Circle circle = Circle(glm::vec3((x - 8) * 100, (y + 2) * 125, 0.), 40.0, object_id++, 1.0, 0.1, 0.01, 10);
             circle.insert(&vertex_data, &object_data, &indices, &triangle_indices, &spring_indices, &spring_data);
         }

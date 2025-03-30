@@ -65,7 +65,7 @@ private:
 	GLuint indicesBuffer;
 
 	double timestep = 0.01;
-	double normal_timestep = 0.01;
+	double normal_timestep = 0.016;
 	double slowed_timestep = 0.05;
 
 	/*render modes
