@@ -1,4 +1,4 @@
-# GPUPhysics
+# GPU Softbody Physics
 OpenGL GPU Spring Mass Model Softbody Simulation
 |![teaser](img/softbody2.gif)|
 |:--:|
