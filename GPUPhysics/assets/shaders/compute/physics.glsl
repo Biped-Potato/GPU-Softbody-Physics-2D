@@ -46,11 +46,11 @@ vec2 component_distance(vec2 p, vec2 e1, vec2 e2) {
     vec2 edge = e2 - e1;
     vec2 toPoint = p - e1;
     float edgeLength = length(edge);
-
+    
     float t = clamp(dot(toPoint, edge) / (edgeLength * edgeLength),0.0,1.0);
     vec2 projected = t * edge;
-    //perpendicular, projected
-    return vec2(distance(toPoint,projected),projected);
+    //                  perpendicular      , projected
+    return vec2(distance(toPoint,projected), projected);
 }
 vec2 as_vec2(uint index) {
     return vec2(vertices[index].position[0],vertices[index].position[1]);
@@ -198,11 +198,12 @@ void main() {
 
             float close_displacement = closeness_ratio * (2 * mass_ratio);
             float far_displacement = (1.0 - closeness_ratio) * (2 * mass_ratio);
-
+            //calculate displacement of vertices
             vec2 close_delta = close_displacement * closest_dist.x * n1;
             vec2 far_delta = far_displacement * closest_dist.x * n1;
-            vec2 point_delta = ((closeness_ratio * (close_displacement - far_displacement)) + (1.0 - close_displacement)) * closest_dist.x * n1;
-
+            vec2 point_delta = ((closeness_ratio * (close_displacement - far_displacement)) 
+                + (1.0 - close_displacement)) * closest_dist.x * n1;
+            //displace vertices with atomic operations
             atomicAdd(vertices[gl_GlobalInvocationID.x].position[0], point_delta.x);
             atomicAdd(vertices[gl_GlobalInvocationID.x].position[1], point_delta.y);
 
@@ -220,10 +221,24 @@ void main() {
             vec2 initial_edge_velocity = vec2(edge_velocity_x,edge_velocity_y); 
             vec2 initial_point_velocity = to_vec2(vertices[gl_GlobalInvocationID.x].velocity);
 
-            vec2 common_equation = (edge_mass * initial_edge_velocity + point_mass * initial_point_velocity)/(point_mass + edge_mass);
-            vec2 final_point_velocity = common_equation + (edge_mass * restitution * (initial_edge_velocity - initial_point_velocity)) / (point_mass + edge_mass); 
-            vec2 final_edge_velocity = common_equation + (point_mass * restitution * (initial_point_velocity - initial_edge_velocity)) / (point_mass + edge_mass); 
+            //both formulas for velocity have the same first half of the equation
+            vec2 common_equation = 
+                (edge_mass * initial_edge_velocity + point_mass * initial_point_velocity)
+                / (point_mass + edge_mass);
 
+            vec2 final_point_velocity = common_equation 
+            + (edge_mass * restitution 
+                * (initial_edge_velocity - initial_point_velocity)) 
+                / (point_mass + edge_mass
+            ); 
+
+            vec2 final_edge_velocity = common_equation 
+            + (point_mass * restitution 
+                * (initial_point_velocity - initial_edge_velocity)) 
+                / (point_mass + edge_mass
+            ); 
+
+            //wrapper to atomically exchange velocities
             change_velocity(gl_GlobalInvocationID.x, final_point_velocity);
             change_velocity(other_point_index, final_edge_velocity);
             change_velocity(closest_point, final_edge_velocity);
