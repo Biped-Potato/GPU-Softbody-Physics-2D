@@ -16,6 +16,7 @@ layout(binding = 1, std430) buffer ssbo1 {
 layout(binding = 2, std430) buffer ssbo2 {
     Spring springs[];
 };
+
 vec2 as_vec2(uint index) {
     return vec2(vertices[index].position[0],vertices[index].position[1]);
 }
@@ -28,24 +29,21 @@ void main() {
     }
 
     uint spring_index = gl_GlobalInvocationID.x;
-  
     Spring spring = springs[spring_index];
     float spring_dist = distance(as_vec2(spring.v1),as_vec2(spring.v2));
     float compressed = spring_dist-spring.resting_length;
 
-    vec2 direction = (as_vec2(spring.v2) - as_vec2(spring.v1)) /spring_dist;
-
-    vec2 halved_spring_force = direction * spring.spring_constant * compressed;
-
+    vec2 direction = (as_vec2(spring.v2) - as_vec2(spring.v1)) / spring_dist;
+    vec2 spring_force = direction * spring.spring_constant * compressed;
     vec2 damping = direction * dot(direction,as_vec2_v(spring.v2) - as_vec2_v(spring.v1)) * spring.damping;
+    spring_force += damping;
 
-    halved_spring_force += damping;
     float mass_1 = objects[vertices[spring.v1].o_id].point_mass;
     float mass_2 = objects[vertices[spring.v2].o_id].point_mass;
 
-    atomicAdd(vertices[spring.v1].velocity[0], halved_spring_force.x/mass_1);
-    atomicAdd(vertices[spring.v1].velocity[1], halved_spring_force.y/mass_1);
+    atomicAdd(vertices[spring.v1].velocity[0], spring_force.x/mass_1);
+    atomicAdd(vertices[spring.v1].velocity[1], spring_force.y/mass_1);
 
-    atomicAdd(vertices[spring.v2].velocity[0], -halved_spring_force.x/mass_2);
-    atomicAdd(vertices[spring.v2].velocity[1], -halved_spring_force.y/mass_2);
+    atomicAdd(vertices[spring.v2].velocity[0], -spring_force.x/mass_2);
+    atomicAdd(vertices[spring.v2].velocity[1], -spring_force.y/mass_2);
 }

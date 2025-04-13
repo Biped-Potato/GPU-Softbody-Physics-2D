@@ -40,6 +40,7 @@ void main() {
 
     float compressed = length(projected - global);
     vec2 direction = normalize(projected - global);
+
     if (!isnan(direction.x) && !isnan(direction.y)) {
         vec2 spring_force = direction * match_factor * compressed;
 
