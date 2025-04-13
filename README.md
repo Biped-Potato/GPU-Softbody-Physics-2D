@@ -11,6 +11,7 @@ A GPU accelerated 2D softbody physics simulation following the spring mass model
 Known Issues
 ============
 * When running the simulation with very high resolution objects, there is a chance that the point in polygon check will return false positives due to the large number of points which align with the horizontal ray and floating precision errors. In case any of you have an idea to fix this, the point in polygon check occurs in the assets/shaders/compute/physics.glsl compute shader and as of now we are using the raycasting algorithm described in the https://en.wikipedia.org/wiki/Point_in_polygon article while also following the solution of only counting edges which have a point lying below our ray intersection point to limit edge cases which still persist due to floating point precision.
+* Squares are known to slide into eachother as there is no way to tell which edge is truly the one our point collides with when they are both at very close distances to our point.
   
 Instructions
 ============
