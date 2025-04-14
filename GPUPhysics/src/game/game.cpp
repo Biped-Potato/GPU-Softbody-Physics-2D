@@ -119,31 +119,31 @@ int Game::setup() {
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, indicesBuffer);
 
     init_object_buffer->use();
-    glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     init_indices_boundaries->use();
-    glDispatchCompute((unsigned int)ceil(indices.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(indices.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     resetCenter->use();
-    glDispatchCompute((unsigned int)ceil(object_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(object_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     findCenters->use();
-    glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     averageCenters->use();
-    glDispatchCompute((unsigned int)ceil(object_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(object_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     findOffsets->use();
-    glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     init_object_properties->use();
-    glDispatchCompute((unsigned int)ceil(object_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(object_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     Input::init(window->getWindow());
@@ -252,11 +252,11 @@ void Game::draw() {
     if (render_mode == 5) {
         if (ticked) {
             calculate_bounds->use();
-            glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+            glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
             glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
             findBounds->use();
-            glDispatchCompute((unsigned int)ceil(object_data.size() / 10.0f), 1, 1);
+            glDispatchCompute((unsigned int)ceil(object_data.size() / (float)workgroup_size), 1, 1);
             glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
         }
 
@@ -300,45 +300,45 @@ void Game::tick(float timestep) {
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, indicesBuffer);
 
     resetCenter->use();
-    glDispatchCompute((unsigned int)ceil(object_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(object_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     findCenters->use();
-    glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     averageCenters->use();
-    glDispatchCompute((unsigned int)ceil(object_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(object_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     find_angles->use();
-    glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     averageAngles->use();
-    glDispatchCompute((unsigned int)ceil(object_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(object_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     gravity->use();
-    glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     computeSprings->use();
-    glDispatchCompute((unsigned int)ceil(spring_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(spring_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     shapeMatching->use();
     shapeMatching->setFloat("match_factor", 0.1f);
     shapeMatching->setFloat("damp_factor", 0.01f);
-    glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     integrate->use();
-    glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     computePhysics->use();
-    glDispatchCompute((unsigned int)ceil(vertex_data.size() / 10.0f), 1, 1);
+    glDispatchCompute((unsigned int)ceil(vertex_data.size() / (float)workgroup_size), 1, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
 }

@@ -46,6 +46,8 @@ private:
 	ComputeShader* init_indices_boundaries;
 	ComputeShader* init_object_properties;
 
+	int workgroup_size = 32;
+
 	std::vector<VertexData> vertex_data;
 	std::vector<ObjectData> object_data;
 	std::vector<Spring> spring_data;
