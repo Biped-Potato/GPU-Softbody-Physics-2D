@@ -1,6 +1,6 @@
 #include "compute.h"
 
-ComputeShader::ComputeShader(const char* computePath, std::vector<char*> include_vec)
+ComputeShader::ComputeShader(const char* computePath, ShaderInclude * includes)
 {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string computeCode;
@@ -27,20 +27,13 @@ ComputeShader::ComputeShader(const char* computePath, std::vector<char*> include
 
     unsigned int computeShader;
 
+    std::string cShaderCodeFullStr = includes->replaceIncludes(cShaderCode);
+    //std::cout << cShaderCodeFullStr;
+    const char * cShaderCodeFull = cShaderCodeFullStr.c_str();
+
     computeShader = glCreateShader(GL_COMPUTE_SHADER);
-    glShaderSource(computeShader, 1, &cShaderCode, NULL);
-
-    // Define the include path
-    char** includePaths = &include_vec[0];
-    std::vector<GLint> length_vec = {};
-
-    for (int i = 0; i < include_vec.size(); i++) {
-        length_vec.push_back((GLint)strlen(include_vec[i]));
-    }
-    GLint* lengths = &length_vec[0];
-
-    // Compile the shader with includes
-    glCompileShaderIncludeARB(computeShader, 1, includePaths, lengths);
+    glShaderSource(computeShader, 1, &cShaderCodeFull, NULL);
+    glCompileShader(computeShader);
     Shader::checkCompileErrors(computeShader, "COMPUTE");
 
     ID = glCreateProgram();

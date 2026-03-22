@@ -1,7 +1,6 @@
 #version 450 
-#extension GL_ARB_shading_language_include : require
 #extension GL_NV_shader_atomic_float : enable
-#include "/common.glsl"
+#include "common.glsl"
 
 layout (local_size_x = 32, local_size_y = 1, local_size_z = 1) in;
 
@@ -38,16 +37,18 @@ void main() {
 
     vec2 projected = vec2(local.x * c - local.y * s, local.x * s + local.y * c);
 
-    float compressed = length(projected - global);
-    vec2 direction = normalize(projected - global);
+    vec2 delta = projected - global;
+    float len = length(delta);
 
-    if (!isnan(direction.x) && !isnan(direction.y)) {
-        vec2 spring_force = direction * match_factor * compressed;
+    if (len > 1e-6) {
+        vec2 direction = delta / len;
+
+        vec2 spring_force = direction * match_factor * len;
 
         float mass = objects[v.o_id].point_mass;
 
-        vertices[gl_GlobalInvocationID.x].velocity[0] += spring_force.x/mass;
-        vertices[gl_GlobalInvocationID.x].velocity[1] += spring_force.y/mass;
+        atomicAdd(vertices[gl_GlobalInvocationID.x].velocity[0], spring_force.x / mass);
+        atomicAdd(vertices[gl_GlobalInvocationID.x].velocity[1], spring_force.y / mass);
     }
 
 }

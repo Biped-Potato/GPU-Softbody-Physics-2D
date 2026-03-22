@@ -1,6 +1,7 @@
 #pragma once
 #include <glad/glad.h> // include glad to get all the required OpenGL headers
 
+#include "shader_include.h"
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -17,7 +18,7 @@ public:
     unsigned int ID;
 
     // constructor reads and builds the shader
-    ComputeShader(const char* computePath, std::vector<char*> include_vec);
+    ComputeShader(const char* computePath, ShaderInclude * includes);
     // use/activate the shader
     void use();
 

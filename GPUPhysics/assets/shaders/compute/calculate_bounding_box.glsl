@@ -1,7 +1,6 @@
 #version 450 
-#extension GL_ARB_shading_language_include : require
 #extension GL_NV_shader_atomic_float : enable
-#include "/common.glsl"
+#include "common.glsl"
 
 layout (local_size_x = 32, local_size_y = 1, local_size_z = 1) in;
 

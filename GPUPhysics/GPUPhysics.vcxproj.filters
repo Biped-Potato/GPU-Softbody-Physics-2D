@@ -128,7 +128,7 @@
     <None Include="assets\shaders\vertex\line.glsl" />
     <None Include="assets\shaders\compute\find_object_boundaries.glsl" />
     <None Include="assets\shaders\compute\spring_physics.glsl" />
-    <None Include="assets\shaders\common\common.glsl" />
+    <None Include="assets\shaders\compute\common.glsl" />
     <None Include="assets\shaders\compute\find_centers.glsl" />
     <None Include="assets\shaders\compute\reset_center.glsl" />
     <None Include="assets\shaders\compute\find_offsets.glsl" />

@@ -43,6 +43,7 @@ Window::Window(int _width, int _height,const char* name) {
 
     const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
 
+    //window = glfwCreateWindow(mode->width / 2, mode->height/2, name, NULL, NULL);
     window = glfwCreateWindow(mode->width, mode->height, name, primaryMonitor, NULL);
 }
 

@@ -1,6 +1,5 @@
 #version 450 core
-#extension GL_ARB_shading_language_include : require
-#include "/common.glsl"
+#include "common.glsl"
 
 layout(binding = 0, std430) buffer ssbo {
     VertexData vertices[];

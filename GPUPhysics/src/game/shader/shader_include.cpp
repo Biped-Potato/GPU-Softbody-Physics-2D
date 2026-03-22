@@ -1,32 +1,35 @@
 #include "shader_include.h"
 
-ShaderInclude::ShaderInclude(const char* path,const char* shaderName)
-{
-    // 1. retrieve the vertex/fragment source code from filePath
-    std::string shaderCode;
-    std::ifstream shaderFile;
-    // ensure ifstream objects can throw exceptions:
-    shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    try
-    {
-        // open files
-        shaderFile.open(path);
-        std::stringstream shaderStream;
-        // read file's buffer contents into streams
-        shaderStream << shaderFile.rdbuf();
-        // close file handlers
-        shaderFile.close();
-        // convert stream into string
-        shaderCode = shaderStream.str();
-    }
-    catch (std::ifstream::failure e)
-    {
-        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-    }
-    const char* c_shaderCode = shaderCode.c_str();
 
-    unsigned int shader;
+void ShaderInclude::addFile(const char * path, const char * shaderName) {
+    std::string shader_code;
+    std::ifstream shader_file;
+    shader_file.open(path);
+    std::stringstream stream;
+    stream << shader_file.rdbuf();
+    shader_file.close();
+    shader_code = stream.str();
 
-    
-    glNamedStringARB(GL_SHADER_INCLUDE_ARB, strlen(shaderName), shaderName, strlen(c_shaderCode), c_shaderCode);
+    include_files[shaderName] = shader_code;
+}
+
+std::string ShaderInclude::get(std::string file) {
+    return include_files[file];
+}
+
+std::string ShaderInclude::replaceIncludes(const char * shader_code) {
+    std::regex includeRegex(R"REGEX(#include\s+"([^"]+)")REGEX");
+    std::smatch match;
+    std::string code = shader_code;
+    int i = 0;
+    while (std::regex_search(code, match, includeRegex)) {
+        i++;
+        std::string includePath = match[1].str();
+        std::string include_code = this->get(includePath);
+        
+        include_code = replaceIncludes(include_code.c_str());
+
+        code.replace(match.position(0), match.length(0), include_code);
+    }
+    return code;
 }

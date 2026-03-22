@@ -5,35 +5,35 @@ Game::Game() {
 }
 int Game::setup() {
 
-    ShaderInclude common = ShaderInclude("assets/shaders/common/common.glsl", "/common.glsl");
+    ShaderInclude * common = new ShaderInclude();
+    common->addFile("assets/shaders/compute/common.glsl", "common.glsl");
 
     //include directories
-    std::vector<char*> common_vec = {(char *)"/common.glsl"};
-    point_shader = new Shader("assets/shaders/vertex/point.glsl", "assets/shaders/fragment/point.glsl", common_vec);
-    line_shader = new Shader("assets/shaders/vertex/line.glsl", "assets/shaders/fragment/line.glsl", common_vec);
-    center_shader = new Shader("assets/shaders/vertex/center.glsl", "assets/shaders/fragment/point.glsl", common_vec);
-    shape_match_shader = new Shader("assets/shaders/vertex/shape_matching.glsl", "assets/shaders/fragment/line.glsl", common_vec);
-    triangle_shader = new Shader("assets/shaders/vertex/triangle.glsl", "assets/shaders/fragment/triangle.glsl", common_vec);
+    point_shader = new Shader("assets/shaders/vertex/point.glsl", "assets/shaders/fragment/point.glsl", common);
+    line_shader = new Shader("assets/shaders/vertex/line.glsl", "assets/shaders/fragment/line.glsl", common);
+    center_shader = new Shader("assets/shaders/vertex/center.glsl", "assets/shaders/fragment/point.glsl", common);
+    shape_match_shader = new Shader("assets/shaders/vertex/shape_matching.glsl", "assets/shaders/fragment/line.glsl", common);
+    triangle_shader = new Shader("assets/shaders/vertex/triangle.glsl", "assets/shaders/fragment/triangle.glsl", common);
     
-    polygon_shader = new Shader("assets/shaders/vertex/polygon.glsl", "assets/shaders/fragment/polygon.glsl", common_vec);
+    polygon_shader = new Shader("assets/shaders/vertex/polygon.glsl", "assets/shaders/fragment/polygon.glsl", common);
 
-    init_indices_boundaries = new ComputeShader("assets/shaders/compute/find_indice_boundaries.glsl", common_vec);
-    computePhysics = new ComputeShader("assets/shaders/compute/physics.glsl", common_vec);
-    init_object_buffer = new ComputeShader("assets/shaders/compute/find_object_boundaries.glsl", common_vec);
-    computeSprings = new ComputeShader("assets/shaders/compute/spring_physics.glsl", common_vec);
-    findCenters = new ComputeShader("assets/shaders/compute/find_centers.glsl", common_vec);
-    resetCenter = new ComputeShader("assets/shaders/compute/reset_center.glsl", common_vec);
-    findOffsets = new ComputeShader("assets/shaders/compute/find_offsets.glsl", common_vec);
-    shapeMatching = new ComputeShader("assets/shaders/compute/shape_matching.glsl", common_vec);
-    find_angles = new ComputeShader("assets/shaders/compute/find_angles.glsl", common_vec);
-    averageCenters = new ComputeShader("assets/shaders/compute/average_centers.glsl", common_vec);
-    averageAngles = new ComputeShader("assets/shaders/compute/average_angles.glsl", common_vec);
-    gravity = new ComputeShader("assets/shaders/compute/gravity.glsl", common_vec);
-    integrate = new ComputeShader("assets/shaders/compute/integrate.glsl", common_vec);
-    init_object_properties = new ComputeShader("assets/shaders/compute/init_object_properties.glsl", common_vec);
+    init_indices_boundaries = new ComputeShader("assets/shaders/compute/find_indice_boundaries.glsl", common);
+    computePhysics = new ComputeShader("assets/shaders/compute/physics.glsl", common);
+    init_object_buffer = new ComputeShader("assets/shaders/compute/find_object_boundaries.glsl", common);
+    computeSprings = new ComputeShader("assets/shaders/compute/spring_physics.glsl", common);
+    findCenters = new ComputeShader("assets/shaders/compute/find_centers.glsl", common);
+    resetCenter = new ComputeShader("assets/shaders/compute/reset_center.glsl", common);
+    findOffsets = new ComputeShader("assets/shaders/compute/find_offsets.glsl", common);
+    shapeMatching = new ComputeShader("assets/shaders/compute/shape_matching.glsl", common);
+    find_angles = new ComputeShader("assets/shaders/compute/find_angles.glsl", common);
+    averageCenters = new ComputeShader("assets/shaders/compute/average_centers.glsl", common);
+    averageAngles = new ComputeShader("assets/shaders/compute/average_angles.glsl", common);
+    gravity = new ComputeShader("assets/shaders/compute/gravity.glsl", common);
+    integrate = new ComputeShader("assets/shaders/compute/integrate.glsl", common);
+    init_object_properties = new ComputeShader("assets/shaders/compute/init_object_properties.glsl", common);
 
-    findBounds = new ComputeShader("assets/shaders/compute/find_bounds.glsl", common_vec);
-    calculate_bounds = new ComputeShader("assets/shaders/compute/calculate_bounding_box.glsl", common_vec);
+    findBounds = new ComputeShader("assets/shaders/compute/find_bounds.glsl", common);
+    calculate_bounds = new ComputeShader("assets/shaders/compute/calculate_bounding_box.glsl", common);
 
     Square square1 = Square(glm::vec3(0., -10400., 0.), 10000.0, object_id++, 10000000000.0, 0.1,0.05);
     square1.insert(&vertex_data, &object_data, &indices, &triangle_indices, &spring_indices, &spring_data);

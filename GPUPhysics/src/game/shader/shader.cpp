@@ -1,4 +1,5 @@
 #include "shader.h"
+#include "shader_include.h"
 
 void Shader::checkCompileErrors(unsigned int ID, const std::string& shader_type) {
     char infoLog[512];
@@ -35,7 +36,7 @@ void Shader::checkCompileErrors(unsigned int ID, const std::string& shader_type)
         }
     }
 }
-Shader::Shader(const char* vertexPath, const char* fragmentPath,std::vector<char*> include_vec)
+Shader::Shader(const char* vertexPath, const char* fragmentPath, ShaderInclude * includes)
 {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
@@ -66,6 +67,12 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath,std::vector<char
         std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
     }
     const char* vShaderCode = vertexCode.c_str();
+
+    //replace includes
+    std::string vShaderCodeFullStr = includes->replaceIncludes(vShaderCode);
+    //std::cout << vShaderCodeFullStr;
+    const char* vShaderCodeFull = vShaderCodeFullStr.c_str();
+
     const char* fShaderCode = fragmentCode.c_str();
     
     unsigned int fragmentShader;
@@ -73,20 +80,10 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath,std::vector<char
 
 
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vShaderCode, NULL);
-
-    // Define the include path
-    char** includePaths = &include_vec[0];
-    std::vector<GLint> length_vec = {};
-
-    for (int i = 0; i < include_vec.size(); i++) {
-        length_vec.push_back((GLint)strlen(include_vec[i]));
-    }
-    GLint* lengths = &length_vec[0];
-
-    // Compile the shader with includes
-    glCompileShaderIncludeARB(vertexShader, 1, includePaths, lengths);
+    glShaderSource(vertexShader, 1, &vShaderCodeFull, NULL);
+    glCompileShader(vertexShader);
     checkCompileErrors(vertexShader, "VERTEX");
+
 
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fShaderCode, NULL);

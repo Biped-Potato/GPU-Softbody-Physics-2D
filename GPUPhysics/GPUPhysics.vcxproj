@@ -80,8 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\OpenGL\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\OpenGL\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\OpenGL\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -186,7 +186,7 @@
     <ClInclude Include="src\game\softbody\vertexdata.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\common\common.glsl" />
+    <None Include="assets\shaders\compute\common.glsl" />
     <None Include="assets\shaders\compute\average_angles.glsl" />
     <None Include="assets\shaders\compute\average_centers.glsl" />
     <None Include="assets\shaders\compute\calculate_bounding_box.glsl" />
@@ -217,9 +217,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
- <ItemGroup>
-  <None Update="Assets\**\*">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </None>
- </ItemGroup>
+  <ItemGroup>
+    <None Update="Assets\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

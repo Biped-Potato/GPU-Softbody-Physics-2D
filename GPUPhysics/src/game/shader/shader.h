@@ -1,5 +1,6 @@
 #pragma once
 
+#include "shader_include.h"
 #include <glad/glad.h> // include glad to get all the required OpenGL headers
 #include <vector>
 #include <string>
@@ -9,6 +10,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <regex>
 
 class Shader
 {
@@ -17,7 +19,7 @@ public:
     unsigned int ID;
 
     // constructor reads and builds the shader
-    Shader(const char* vertexPath, const char* fragmentPath, std::vector<char*> include_vec);
+    Shader(const char* vertexPath, const char* fragmentPath, ShaderInclude * includes);
     // use/activate the shader
     void use();
     
